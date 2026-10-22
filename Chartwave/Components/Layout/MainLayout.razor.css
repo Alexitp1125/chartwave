@@ -1,7 +1,11 @@
+/* Brand bar: Rako + app name, Install, hub link, language and theme.
+   In the installed app it also shows Back, Share and Reload (js/app-shell.js runs them). */
 .cw-nav {
     position: sticky;
     top: 0;
     z-index: 10;
+    /* Below the notch / status bar of the installed app. */
+    padding-top: env(safe-area-inset-top);
     background: color-mix(in srgb, var(--bg) 82%, transparent);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
@@ -10,10 +14,9 @@
 .cw-nav-in {
     max-width: 1240px;
     margin: 0 auto;
-    padding: .8rem 1.5rem;
+    padding: .8rem max(1.5rem, env(safe-area-inset-right)) .8rem max(1.5rem, env(safe-area-inset-left));
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 1rem;
 }
 
@@ -21,6 +24,8 @@
     display: flex;
     align-items: center;
     gap: .6rem;
+    min-width: 0;
+    margin-right: auto;
     font-weight: 500;
     letter-spacing: .32em;
     color: var(--text);
@@ -28,6 +33,7 @@
 }
 
 .cw-mark {
+    flex: none;
     width: 30px;
     height: 30px;
     display: block;
@@ -49,6 +55,41 @@
 
 .cw-nav-tools a:hover {
     color: var(--text);
+}
+
+.cw-hub-link {
+    white-space: nowrap;
+}
+
+/* Install: hidden until the browser can install the app. */
+.cw-install {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    padding: .3rem .8rem;
+    border: none;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--cream);
+    font: 500 .8rem var(--font-title);
+    letter-spacing: normal;
+    white-space: nowrap;
+    text-shadow: 0 1px 2px color-mix(in srgb, var(--ink) 50%, transparent);
+    cursor: pointer;
+}
+
+.cw-install[hidden] {
+    display: none;
+}
+
+.cw-install svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .cw-lang {
@@ -101,13 +142,124 @@
     display: block;
 }
 
+/* Back, Share and Reload. */
+.cw-icon-btn {
+    width: 32px;
+    height: 32px;
+    flex: none;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color .2s ease;
+}
+
+.cw-icon-btn:hover {
+    color: var(--text);
+}
+
+.cw-icon-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Only in the installed app; the browser has its own Back, Share and Reload. After .cw-icon-btn so it wins. */
+.cw-app-only {
+    display: none;
+}
+
+@media (display-mode: standalone) {
+    .cw-app-only {
+        display: grid;
+    }
+}
+
+/* Hub link at the end of the page, only on phones. */
+.cw-footer {
+    display: none;
+    margin-top: 3rem;
+    text-align: center;
+    font: 400 .75rem var(--font-label);
+    letter-spacing: .15em;
+}
+
+.cw-footer a {
+    color: var(--text-muted);
+    text-decoration: none;
+}
+
+.cw-footer a:hover {
+    color: var(--text);
+}
+
+/* Steps to install on iPhone / iPad. */
+.cw-ios-install {
+    max-width: min(340px, calc(100vw - 32px));
+    padding: 1.4rem 1.5rem;
+    border: 2px solid var(--line);
+    border-radius: 14px;
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 5px 5px 0 var(--accent-2);
+}
+
+.cw-ios-install::backdrop {
+    background: rgb(0 0 0 / .45);
+}
+
+.cw-ios-install h2 {
+    margin: 0 0 .8rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.cw-ios-install ol {
+    margin: 0 0 1.2rem;
+    padding-left: 1.2rem;
+    line-height: 1.9;
+}
+
+.cw-ios-install ol svg {
+    width: 15px;
+    height: 15px;
+    vertical-align: -2px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Phones: tighter bar, and the hub link moves to the end of the page. */
 @media (max-width: 600px) {
     .cw-nav-in {
-        padding: .7rem 16px;
+        padding: .7rem max(16px, env(safe-area-inset-right)) .7rem max(16px, env(safe-area-inset-left));
+        gap: .6rem;
     }
 
-    .cw-hub-link {
+    .cw-brand {
+        letter-spacing: .2em;
+    }
+
+    .cw-nav-tools {
+        gap: .7rem;
+    }
+
+    .cw-nav-tools .cw-hub-link {
         display: none;
+    }
+
+    .cw-footer {
+        display: block;
     }
 }
 
@@ -118,7 +270,8 @@
     left: 0;
     width: 100%;
     z-index: 1000;
-    padding: .7rem 1.25rem;
+    /* Above the gesture bar of the installed app. */
+    padding: .7rem max(1.25rem, env(safe-area-inset-right)) calc(.7rem + env(safe-area-inset-bottom)) max(1.25rem, env(safe-area-inset-left));
     background: var(--surface);
     color: var(--text);
     border-top: 2px solid var(--accent-3);
@@ -132,6 +285,6 @@
 #blazor-error-ui .dismiss {
     cursor: pointer;
     position: absolute;
-    right: 1rem;
+    right: max(1rem, env(safe-area-inset-right));
     top: .6rem;
 }

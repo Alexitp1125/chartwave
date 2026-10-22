@@ -10,22 +10,31 @@ Sigue `dev-conventions`. Aquí solo va lo propio de esta app.
 | Subdominio | `chartwave.alexitp1125.com` |
 | Repo | `chartwave` en GitHub (antes `graphic-generator`, renombrado el 2026-10-21). Licencia MIT para el código. |
 | Prefijo CSS | `cw-` |
-| Estado | **v1 (donut 3D) desplegada** en https://chartwave.alexitp1125.com (2026-10-21). **Aún no cumple §11 (instalable): es la v1.1.** |
+| Estado | **v1 (donut 3D) desplegada** en https://chartwave.alexitp1125.com (2026-10-21). **v1.1 (instalable, §11) probada en la PC y en despliegue (2026-10-21).** |
 | En el hub | Tarjeta "3D Donut Chart": pasa a Chartwave / *Live* en el chat del hub. |
 
-**Dónde estoy:** v1 en producción. La fuente de verdad es `C:\dev\chartwave` (PC de casa) y GitHub.
-**Qué sigue — v1.1, instalable como app (`CONVENTIONS.md` §11):**
+**Dónde estoy:** v1 en producción; v1.1 probada en la PC, se sube y se despliega el 2026-10-21. La fuente de verdad es
+`C:\dev\chartwave` (PC de casa) y GitHub.
 
-1. Icono de Chartwave: Rako con un detalle pequeño (por ejemplo un mini donut) y su color de fondo, con demo antes.
-   Salen `icon-maskable-512.png` y `apple-touch-icon.png` (180 px, fondo opaco).
-2. `manifest.webmanifest` según §11.1 (`id`, `lang`, `scope`, `description`, icono *maskable*).
-3. Copiar `sw.js` y `offline.html` a `wwwroot/` y `app-shell.js` a `wwwroot/js/` desde `dev-conventions/pwa/`.
-4. `App.razor` según §11.3: `viewport-fit=cover`, `theme-color`, `apple-touch-icon`, `apple-mobile-web-app-title`
-   y `app-shell.js`.
-5. **Tema:** cambiar la clave de `localStorage` de `cw-theme` a `theme` (§11.3; la lee `offline.html`).
-6. Barra: Instalar, Atrás (fuera de `/`), Compartir, Recargar y el diálogo de iPhone, con textos en los `.resx`.
-   Zonas seguras (`env(safe-area-inset-*)`) en la barra fija. Enlace al hub con `target="_blank" rel="noopener"`.
-7. Comprobar según §11.8 (DevTools → Manifest, Android, iPhone y PC) y desplegar.
+**v1.1, instalable como app (`CONVENTIONS.md` §11) — hecho:**
+
+- Icono: Rako con un mini donut detrás, fondo aguamarina (`app-icon.svg`, opción A de la demo, aprobada).
+  De él salen `icon-maskable-512.png` y `apple-touch-icon.png` (180 px, opacos).
+- `manifest.webmanifest` según §11.1; `sw.js`, `offline.html` y `js/app-shell.js` copiados tal cual de `dev-conventions/pwa/`.
+- `App.razor` según §11.3. Clave del tema en `localStorage`: `theme` (antes `cw-theme`).
+- Barra: Instalar, Atrás (fuera de `/` y `/donut`), Compartir y Recargar (solo instalada), diálogo de iPhone, zonas
+  seguras y enlace al hub con `target="_blank" rel="noopener"`. En el teléfono el enlace al hub baja al final de la página.
+- Probado en Chromium con una copia estática de la barra: manifiesto e *Installability* sin errores, service worker
+  activo, página sin conexión, botón Instalar (con un `beforeinstallprompt` simulado), Compartir (copia y aviso), tema
+  y `theme-color`, de 320 a 1280 px sin desbordes.
+
+**Qué sigue:**
+
+1. Tras el despliegue, comprobar según §11.8: Android (Chrome y Brave), iPhone (Safari) y PC (Chrome o Edge).
+   Instalada: Atrás, Compartir, Recargar, sin conexión y zonas seguras.
+2. En el chat del hub: la tarjeta de Chartwave ya puede llevar `<install installurl="https://chartwave.alexitp1125.com/">`
+   (§11.7), porque el manifiesto tiene `id`.
+3. Después: candidatas para la v1.2, compartir por enlace (estado en la URL) y etiquetas legibles en el móvil.
 
 **Pendiente menor:** el `Dockerfile` repite `ENV ASPNETCORE_URLS=http://+:8080`, que la imagen de .NET ya trae como
 `HTTP_PORTS=8080` (el log avisa "Overriding HTTP_PORTS"). Funciona igual. Si se quita, quitarlo en todas las apps a la
@@ -39,6 +48,10 @@ vez (viene del `Dockerfile` de referencia del hub).
 3. En la página: Ejemplo → la gráfica se dibuja; hover → tooltip; sliders; cambiar el color; PNG/JPG; tema; EN/ES.
 4. `http://localhost:5080/no-existe` → 404 con Rako.
 5. Hacer *Rebuild* (no solo *Build*) y repetir el punto 2: comprueba que el JS compilado no duplica los static web assets.
+6. App instalable: DevTools → Application → Manifest sin errores (iconos visibles, *Installability* sin avisos) y
+   Service workers con `sw.js` activo. Instalar desde el botón de la barra o el de la barra de direcciones: en la
+   ventana de la app salen Compartir y Recargar (y Atrás en `/no-existe`). Network → Offline + recargar → página sin
+   conexión con Rako.
 
 ## Decisiones de esta app
 
@@ -57,8 +70,11 @@ vez (viene del `Dockerfile` de referencia del hub).
 | Colores de las porciones: paleta base de la marca en `SlicePalette.cs`. Colores del canvas: leídos de las variables CSS del tema activo. | La paleta base es fija según `DECISIONS.md`. El canvas no lleva ningún color escrito a mano y se redibuja solo al cambiar el tema. |
 | Idioma: solo la cookie de cultura; sin ella, inglés (no se usa `Accept-Language`). El cambio de idioma recarga la página (`data-enhance-nav="false"`). | Inglés por defecto (convención). WASM fija su cultura al arrancar, así que hay que reiniciarlo. |
 | La cultura de WASM se pasa con `Blazor.start({ webAssembly: { applicationCulture } })`, leída de `<html lang>`. | Así WASM carga los recursos de `es` desde el arranque. .NET 10 además conserva por defecto la cultura del servidor (`UseCultureFromServer`). |
-| Tema con `js/theme.js` (JS plano en el host, `localStorage` `cw-theme`; pasa a `theme` en la v1.1). | Son 30 líneas en una barra SSR; no justifica TypeScript ni interactividad en el host. |
-| v1 desplegada sin §11 (instalable); va en la v1.1. Sin `apple-touch-icon` hasta entonces. | La regla llegó el mismo día. Necesita el icono propio de la app (diseño con demo) y pruebas de instalación reales; se hizo igual con Mixtape. El `favicon-180.png` transparente salió de la marca. |
+| Tema con `js/theme.js` (JS plano en el host, `localStorage` `theme`; hasta la v1.1 era `cw-theme`). | Son 30 líneas en una barra SSR; no justifica TypeScript ni interactividad en el host. La clave es la común de §11.3: `offline.html` la lee. Quien ya eligió tema antes de la v1.1 vuelve una vez al oscuro. |
+| v1 desplegada sin §11 (instalable); va en la v1.1. | La regla llegó el mismo día. Necesitaba el icono propio de la app (diseño con demo) y pruebas de instalación reales; se hizo igual con Mixtape. |
+| Icono de app: Rako con un donut de tres porciones detrás (crema, violeta y rosa, como la paleta base), fondo aguamarina. | El detalle pequeño de §11.2 dice qué hace la app. El aguamarina no lo usan el hub ni Mixtape. Todo dentro del círculo seguro del 80 %. Para cambiarlo: editar `app-icon.svg` y volver a sacar los dos PNG. |
+| Botones de la app: Atrás, Compartir y Recargar sin borde; el del tema sigue siendo el círculo. Orden: Instalar, hub, idioma, tema, Compartir, Recargar. | El círculo marca el control que se usa en el navegador; los de la app son secundarios. Se mantiene el orden de la v1 y lo nuevo va en los extremos. |
+| Teléfonos: el texto CHARTWAVE se oculta (queda Rako) hasta 420 px si se ve Instalar, y hasta 460 px en la app instalada. | Medido en Chromium con Jost: a esos anchos el nombre se pisa con los botones. Mixtape usa 400 px, pero su nombre es más corto. |
 | Sin `UseHttpsRedirection` ni HSTS. | El TLS y la redirección a HTTPS los hace Caddy. |
 | Sin carpeta `DependencyInjection/` todavía. | Solo hay `AddLocalization()`; se crea cuando haya servicios propios. |
 
@@ -93,6 +109,10 @@ y se iría ampliando con cada uso.
   `wwwroot` del host y el del `.Client`: comparten la raíz.
 - **El canvas siempre está en el DOM** (se oculta con `cw-hidden`). Si se quita con `@if`, el módulo TS se queda con un
   canvas que ya no existe.
+- **`sw.js`, `offline.html` y `js/app-shell.js` no se editan aquí**: son copias de `dev-conventions/pwa/`. Si algo
+  cambia, se cambia allí y se vuelve a copiar.
+- **Reglas de la barra con `:has()`** (ocultar el nombre en teléfonos) están en `app.css`, no en `MainLayout.razor.css`,
+  para que el aislamiento de CSS no reescriba el selector.
 - **Móvil**: el canvas mide 800 × 540 lógicos y se escala; en pantallas estrechas las etiquetas quedan pequeñas.
   Pendiente para después de la v1.
 
@@ -132,3 +152,14 @@ y se iría ampliando con cada uso.
   `wwwroot/js/donut-chart.js` publicado (con `.br` y `.gz`) y HTTP 200 por HTTPS.
 - Avisos del log, inofensivos: claves de DataProtection sin persistir (no hay login ni formularios que las usen) y
   "Overriding HTTP_PORTS" (ver *Pendiente menor*).
+
+### 2026-10-21 — PC de casa, v1.1 (instalable)
+
+- Icono: tres propuestas (aguamarina, atardecer, orquídea) con Rako y un mini donut; aprobada la A (aguamarina). El
+  donut se movió a la derecha para que Rako no lo tape y quede dentro de la zona segura.
+- Manifiesto, iconos, archivos de `pwa/`, `App.razor`, clave del tema, barra con los botones de la app, diálogo de
+  iPhone, pie con el enlace al hub en el teléfono y zonas seguras. Nueve textos nuevos en los `.resx` (EN/ES).
+- Probado en Chromium sobre una copia estática (aquí no hay .NET): ver la lista de *Dónde estoy*. El modo instalada no
+  se puede emular en Chromium sin ventana; se probó reescribiendo la *media query*.
+- Probada en la PC: todo bien. Commit `feat: Chartwave v1.1, installable app` y despliegue igual que la v1 (Caddy sin
+  cambios).

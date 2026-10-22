@@ -3,7 +3,9 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    @* Title bar (PC) and status bar (Android) of the installed app; js/app-shell.js keeps it on the theme's --bg. *@
+    <meta name="theme-color" content="#110B4A" />
     <base href="/" />
     <script src="@Assets["js/theme.js"]"></script>
     <ResourcePreloader />
@@ -17,7 +19,9 @@
     <ImportMap />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="apple-mobile-web-app-title" content="Chartwave" />
     <HeadOutlet />
 </head>
 
@@ -27,6 +31,8 @@
     <script>
         Blazor.start({ webAssembly: { applicationCulture: document.documentElement.lang } });
     </script>
+    @* Service worker and the buttons of the installed app (copied from dev-conventions/pwa). *@
+    <script src="@Assets["js/app-shell.js"]"></script>
 </body>
 
 </html>

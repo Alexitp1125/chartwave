@@ -19,10 +19,11 @@ body {
         color-mix(in srgb, var(--sky-3) 20%, var(--bg)) 100%);
 }
 
+/* The env() values keep the content clear of the notch and the gesture bar in the installed app. */
 .cw-main {
     max-width: 1240px;
     margin: 0 auto;
-    padding: 2.5rem 1.5rem 4rem;
+    padding: 2.5rem max(1.5rem, env(safe-area-inset-right)) calc(4rem + env(safe-area-inset-bottom)) max(1.5rem, env(safe-area-inset-left));
 }
 
 /* FocusOnNavigate focuses the page's h1 for screen readers; no visible outline. */
@@ -175,11 +176,26 @@ h1:focus {
 
 @media (max-width: 600px) {
     .cw-main {
-        padding: 1.8rem 16px 3rem;
+        padding: 1.8rem max(16px, env(safe-area-inset-right)) calc(3rem + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
     }
 
     .cw-message-rako {
         width: 140px;
         height: 140px;
+    }
+}
+
+/* Brand bar (MainLayout) on small phones: only Rako when the bar is full (Install showing, or the
+   installed app with Share and Reload). Global, as in Mixtape, so CSS isolation doesn't rewrite the
+   :has() selector. */
+@media (max-width: 420px) {
+    .cw-nav:has(.cw-install:not([hidden])) .cw-brand span {
+        display: none;
+    }
+}
+
+@media (max-width: 460px) and (display-mode: standalone) {
+    .cw-nav .cw-brand span {
+        display: none;
     }
 }

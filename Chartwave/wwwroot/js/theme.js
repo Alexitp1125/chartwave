@@ -1,6 +1,7 @@
 // Dark/light theme: applies the saved theme on load and switches it with the [data-cw-theme-toggle] button.
 (function () {
-    var storageKey = 'cw-theme';
+    // Same key in every app (CONVENTIONS §11): offline.html reads it to show the offline page in the saved theme.
+    var storageKey = 'theme';
 
     function savedTheme() {
         try {

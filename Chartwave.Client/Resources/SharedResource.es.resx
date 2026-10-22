@@ -27,6 +27,33 @@
   <data name="Reload" xml:space="preserve">
     <value>Recargar</value>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Atrás</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Compartir</value>
+  </data>
+  <data name="LinkCopied" xml:space="preserve">
+    <value>Enlace copiado</value>
+  </data>
+  <data name="Install" xml:space="preserve">
+    <value>Instalar</value>
+  </data>
+  <data name="InstallTitle" xml:space="preserve">
+    <value>Instalar Chartwave</value>
+  </data>
+  <data name="InstallStep1" xml:space="preserve">
+    <value>Toca Compartir</value>
+  </data>
+  <data name="InstallStep2" xml:space="preserve">
+    <value>Elige «Añadir a pantalla de inicio»</value>
+  </data>
+  <data name="InstallStep3" xml:space="preserve">
+    <value>Toca «Añadir»</value>
+  </data>
+  <data name="InstallClose" xml:space="preserve">
+    <value>Entendido</value>
+  </data>
   <data name="DonutPageTitle" xml:space="preserve">
     <value>Gráfica donut 3D</value>
   </data>

@@ -4,9 +4,10 @@ A 3D chart generator, part of [alexitp1125.com](https://alexitp1125.com).
 
 The first chart is an interactive **3D donut**: add options with a name, value and color, switch between
 percentage and absolute values, adjust depth, tilt and rotation, hover the slices, and export the chart as a
-high-resolution PNG or JPG. Light and dark themes, English and Spanish.
+high-resolution PNG or JPG. Light and dark themes, English and Spanish. It can be installed as an app on phones and
+desktops.
 
-**Status:** v1 (3D donut). Site: [chartwave.alexitp1125.com](https://chartwave.alexitp1125.com).
+**Status:** v1.1 (3D donut, installable app). Site: [chartwave.alexitp1125.com](https://chartwave.alexitp1125.com).
 
 ## Stack
 

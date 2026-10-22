@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Offline</title>
+    <!-- Shown by sw.js when a page can't load. Works without the network, so it carries
+         its own copy of the brand colors (brand/tokens.css) and of Rako. -->
+    <style>
+        :root { --bg: #110B4A; --surface: #1B1370; --text: #F3F0FF; --muted: #B9B3F2; --line: #6A4CF0;
+                --a1: #4FE7FF; --a2: #9B6BFF; --a3: #FF5FD1; --cream: #FFF6FB; }
+        :root[data-theme="light"] { --bg: #F4F1FF; --surface: #FFFFFF; --text: #272A86; --muted: #5D5FA8; --line: #2D3192;
+                --a1: #38B6F2; --a2: #8F7BFF; --a3: #FF6FC8; }
+        * { box-sizing: border-box; }
+        html, body { height: 100%; margin: 0; }
+        body { display: grid; place-items: center; padding: max(1.5rem, env(safe-area-inset-top)) 1.5rem max(1.5rem, env(safe-area-inset-bottom));
+               background: var(--bg); color: var(--text); font-family: Jost, 'Helvetica Neue', Arial, sans-serif; text-align: center; }
+        .rako { display: block; width: 150px; height: 150px; margin: 0 auto 1.2rem; }
+        h1 { margin: 0 0 .6rem; font-size: 2rem; font-weight: 300; }
+        p { margin: 0 0 1.6rem; color: var(--muted); font-weight: 300; line-height: 1.6; }
+        button { padding: .7rem 1.4rem; border: 0; border-radius: 10px; cursor: pointer; font-family: inherit; font-size: .95rem; font-weight: 500;
+                 color: var(--cream); background: linear-gradient(90deg, var(--a1), var(--a2), var(--a3)); text-shadow: 0 1px 2px rgba(0,0,0,.25); }
+    </style>
+    <script>
+        // Same theme and language as the app (saved theme, culture cookie).
+        try { if (localStorage.getItem('theme') === 'light') document.documentElement.setAttribute('data-theme', 'light'); } catch (e) { }
+        var es = /(^|;\s*)\.AspNetCore\.Culture=[^;]*c%3Des/.test(document.cookie) || /(^|;\s*)\.AspNetCore\.Culture=[^;]*c=es/.test(document.cookie);
+    </script>
+</head>
+<body>
+    <main>
+        <svg class="rako" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><defs><clipPath id="rako-empty-tail"><ellipse cx="186" cy="192" rx="26" ry="46"/></clipPath></defs><g transform="rotate(30 186 192)"><ellipse cx="186" cy="192" rx="26" ry="46" fill="#C9B8F5"/><path d="M150 140h80v24h-80Z M150 180h80v12h-80Z M150 208h80v12h-80Z" fill="#6E59C2" clip-path="url(#rako-empty-tail)"/><ellipse cx="186" cy="192" rx="26" ry="46" fill="none" stroke="#3A2766" stroke-width="6"/></g><rect x="70" y="140" width="100" height="98" rx="46" fill="#C9B8F5" stroke="#3A2766" stroke-width="6"/><ellipse cx="120" cy="202" rx="30" ry="27" fill="#FFF6FB"/><g transform="translate(30 0) scale(0.7)"><path d="M64 112 55 40Q54 28 65 33L124 68Z M192 112 201 40Q202 28 191 33L132 68Z" fill="#C9B8F5" stroke="#3A2766" stroke-width="8.5" stroke-linejoin="round"/><path d="M76 92 71 54 102 74Z M180 92 185 54 154 74Z" fill="#F6A6D7" stroke="#F6A6D7" stroke-width="6" stroke-linejoin="round"/><rect x="36" y="64" width="184" height="164" rx="82" fill="#C9B8F5" stroke="#3A2766" stroke-width="8.5"/><rect x="52" y="122" width="152" height="52" rx="26" fill="#3A2766"/><path d="M96 141a10 10 0 1 0 20 0a10 10 0 1 0-20 0Z M156 141a10 10 0 1 0 20 0a10 10 0 1 0-20 0Z" fill="#FFF6FB"/><ellipse cx="128" cy="194" rx="34" ry="22" fill="#FFF6FB"/><ellipse cx="128" cy="186" rx="9" ry="7" fill="#3A2766"/><circle cx="38" cy="150" r="16" fill="#7FDBEA" stroke="#3A2766" stroke-width="8.5"/></g></svg>
+        <h1 id="title">You're offline</h1>
+        <p id="text">Check your connection and try again.</p>
+        <button type="button" id="reload" onclick="location.reload()">Reload</button>
+    </main>
+    <script>
+        if (es) {
+            document.documentElement.lang = 'es';
+            document.getElementById('title').textContent = 'Sin conexión';
+            document.getElementById('text').textContent = 'Revisa tu conexión y vuelve a intentarlo.';
+            document.getElementById('reload').textContent = 'Recargar';
+        }
+    </script>
+</body>
+</html>

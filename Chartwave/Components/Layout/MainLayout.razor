@@ -2,15 +2,29 @@
 @inject IStringLocalizer<SharedResource> Localizer
 @inject NavigationManager Navigation
 
+@* The data-app-* buttons and the iPhone dialog are run by js/app-shell.js (dev-conventions/pwa). *@
 <nav class="cw-nav">
     <div class="cw-nav-in">
+        @if (!IsHome)
+        {
+            <button type="button" class="cw-icon-btn cw-app-only" data-app-back title="@Localizer["Back"]" aria-label="@Localizer["Back"]">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8H3m4-4L3 8l4 4" /></svg>
+            </button>
+        }
+
         <a class="cw-brand" href="/">
             <img class="cw-mark" src="brand/rako-mark.svg" alt="" />
             <span>CHARTWAVE</span>
         </a>
 
         <div class="cw-nav-tools">
-            <a class="cw-hub-link" href="https://alexitp1125.com" title="@Localizer["MoreApps"]">alexitp1125.com</a>
+            <button type="button" class="cw-install" data-app-install hidden>
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8m0 0L4.5 6.5M8 10l3.5-3.5M2.5 13.5h11" /></svg>
+                @Localizer["Install"]
+            </button>
+
+            @* Opens outside the installed app's window. *@
+            <a class="cw-hub-link" href="https://alexitp1125.com" target="_blank" rel="noopener" title="@Localizer["MoreApps"]">alexitp1125.com ↗</a>
 
             <span class="cw-lang" role="group" aria-label="@Localizer["Language"]">
                 <a href="@CultureUrl("en")" class="@LanguageClass("en")" data-enhance-nav="false">EN</a>
@@ -27,12 +41,39 @@
                     <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z" />
                 </svg>
             </button>
+
+            <button type="button" class="cw-icon-btn cw-app-only" data-app-share data-copied="@Localizer["LinkCopied"]" title="@Localizer["Share"]" aria-label="@Localizer["Share"]">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="12" cy="3.5" r="2" /><circle cx="4" cy="8" r="2" /><circle cx="12" cy="12.5" r="2" /><path d="M5.8 7l4.4-2.5M5.8 9l4.4 2.5" /></svg>
+            </button>
+
+            <button type="button" class="cw-icon-btn cw-app-only" data-app-reload title="@Localizer["Reload"]" aria-label="@Localizer["Reload"]">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9" /><path d="M13.5 2.5v3h-3" /></svg>
+            </button>
         </div>
     </div>
 </nav>
 
+@* Steps to install on iPhone and iPad, which have no install prompt. *@
+<dialog class="cw-ios-install" data-app-ios-install aria-labelledby="cw-ios-install-title">
+    <h2 id="cw-ios-install-title">@Localizer["InstallTitle"]</h2>
+    <ol>
+        <li>
+            @Localizer["InstallStep1"]
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5v8.5M5 4.5l3-3 3 3M5 7H3.5v7.5h9V7H11" /></svg>
+        </li>
+        <li>@Localizer["InstallStep2"]</li>
+        <li>@Localizer["InstallStep3"]</li>
+    </ol>
+    <button type="button" class="cw-btn cw-btn-primary" data-app-ios-close>@Localizer["InstallClose"]</button>
+</dialog>
+
 <main class="cw-main">
     @Body
+
+    @* On phones the hub link doesn't fit in the bar, so it moves to the end of the page. *@
+    <footer class="cw-footer">
+        <a class="cw-hub-link" href="https://alexitp1125.com" target="_blank" rel="noopener">alexitp1125.com ↗</a>
+    </footer>
 </main>
 
 <div id="blazor-error-ui" data-nosnippet>
@@ -42,6 +83,9 @@
 </div>
 
 @code {
+    // Back only makes sense away from the generator, which is the home page.
+    private bool IsHome => new Uri(Navigation.Uri).AbsolutePath is "/" or "/donut";
+
     // The language link goes through the culture endpoint and comes back to the current page.
     private string CultureUrl(string culture)
     {
