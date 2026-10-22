@@ -32,8 +32,9 @@ Sigue `dev-conventions`. Aquí solo va lo propio de esta app.
 
 1. Tras el despliegue, comprobar según §11.8: Android (Chrome y Brave), iPhone (Safari) y PC (Chrome o Edge).
    Instalada: Atrás, Compartir, Recargar, sin conexión y zonas seguras.
-2. En el chat del hub: la tarjeta de Chartwave ya puede llevar `<install installurl="https://chartwave.alexitp1125.com/">`
-   (§11.7), porque el manifiesto tiene `id`.
+2. Instalar desde el hub (§11.7): todavía no. Una página no puede instalar otra hasta que `<install>` salga en estable
+   (Chrome 158, previsto para el 17-nov-2026). Lo decide el chat del hub; por parte de Chartwave ya está listo
+   (`id` en el manifiesto).
 3. Después: candidatas para la v1.2, compartir por enlace (estado en la URL) y etiquetas legibles en el móvil.
 
 **Pendiente menor:** el `Dockerfile` repite `ENV ASPNETCORE_URLS=http://+:8080`, que la imagen de .NET ya trae como
