@@ -10,10 +10,10 @@ Sigue `dev-conventions`. Aquí solo va lo propio de esta app.
 | Subdominio | `chartwave.alexitp1125.com` |
 | Repo | `chartwave` en GitHub (antes `graphic-generator`, renombrado el 2026-10-21). Licencia MIT para el código. |
 | Prefijo CSS | `cw-` |
-| Estado | v1 (donut 3D) lista y probada en local. Primer despliegue: 2026-10-21. **Aún no cumple §11 (instalable): es la v1.1.** |
-| En el hub | Tarjeta "3D Donut Chart". La actualiza el chat del hub. |
+| Estado | **v1 (donut 3D) desplegada** en https://chartwave.alexitp1125.com (2026-10-21). **Aún no cumple §11 (instalable): es la v1.1.** |
+| En el hub | Tarjeta "3D Donut Chart": pasa a Chartwave / *Live* en el chat del hub. |
 
-**Dónde estoy:** v1 en `C:\dev\chartwave` (PC de casa), desplegándose por primera vez.
+**Dónde estoy:** v1 en producción. La fuente de verdad es `C:\dev\chartwave` (PC de casa) y GitHub.
 **Qué sigue — v1.1, instalable como app (`CONVENTIONS.md` §11):**
 
 1. Icono de Chartwave: Rako con un detalle pequeño (por ejemplo un mini donut) y su color de fondo, con demo antes.
@@ -26,6 +26,10 @@ Sigue `dev-conventions`. Aquí solo va lo propio de esta app.
 6. Barra: Instalar, Atrás (fuera de `/`), Compartir, Recargar y el diálogo de iPhone, con textos en los `.resx`.
    Zonas seguras (`env(safe-area-inset-*)`) en la barra fija. Enlace al hub con `target="_blank" rel="noopener"`.
 7. Comprobar según §11.8 (DevTools → Manifest, Android, iPhone y PC) y desplegar.
+
+**Pendiente menor:** el `Dockerfile` repite `ENV ASPNETCORE_URLS=http://+:8080`, que la imagen de .NET ya trae como
+`HTTP_PORTS=8080` (el log avisa "Overriding HTTP_PORTS"). Funciona igual. Si se quita, quitarlo en todas las apps a la
+vez (viene del `Dockerfile` de referencia del hub).
 
 ## Primera prueba
 
@@ -123,3 +127,8 @@ y se iría ampliando con cada uso.
 - Leído el requisito nuevo de `dev-conventions` (§11, apps instalables). Se deja para la v1.1 (lista arriba).
 - Quitado el `apple-touch-icon` (`favicon-180.png` ya no está en la marca).
 - Añadida la app a `server-infra`: servicio `chartwave` en el compose y `chartwave.alexitp1125.com` en el Caddyfile.
+- **Desplegada.** Health check previo: disco al 23 %, 1,3 GB de RAM libre. Build en el droplet: 121 s, con TypeScript 7
+  en Linux sin Node. Caddy recreado y certificado de Let's Encrypt a la primera. Comprobado en el servidor:
+  `wwwroot/js/donut-chart.js` publicado (con `.br` y `.gz`) y HTTP 200 por HTTPS.
+- Avisos del log, inofensivos: claves de DataProtection sin persistir (no hay login ni formularios que las usen) y
+  "Overriding HTTP_PORTS" (ver *Pendiente menor*).
