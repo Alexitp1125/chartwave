@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MoreApps" xml:space="preserve">
+    <value>More apps by Alexi Torres</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="ToggleTheme" xml:space="preserve">
+    <value>Switch theme</value>
+  </data>
+  <data name="UnhandledError" xml:space="preserve">
+    <value>An unexpected error has occurred.</value>
+  </data>
+  <data name="Reload" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <data name="DonutPageTitle" xml:space="preserve">
+    <value>3D donut chart</value>
+  </data>
+  <data name="HeroLead" xml:space="preserve">
+    <value>3D donut</value>
+  </data>
+  <data name="HeroAccent" xml:space="preserve">
+    <value>chart generator</value>
+  </data>
+  <data name="HeroText" xml:space="preserve">
+    <value>Add options, give them a value and export your interactive 3D chart.</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading…</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>3D preview</value>
+  </data>
+  <data name="ChartTitle" xml:space="preserve">
+    <value>Chart title</value>
+  </data>
+  <data name="DefaultChartTitle" xml:space="preserve">
+    <value>My 3D donut chart</value>
+  </data>
+  <data name="ValueSuffix" xml:space="preserve">
+    <value>Value suffix</value>
+  </data>
+  <data name="SuffixPlaceholder" xml:space="preserve">
+    <value>e.g. %, USD, kg</value>
+  </data>
+  <data name="ValueMode" xml:space="preserve">
+    <value>Value mode</value>
+  </data>
+  <data name="ModePercentage" xml:space="preserve">
+    <value>Percentage</value>
+  </data>
+  <data name="ModeAbsolute" xml:space="preserve">
+    <value>Absolute value</value>
+  </data>
+  <data name="Depth" xml:space="preserve">
+    <value>3D depth</value>
+  </data>
+  <data name="Tilt" xml:space="preserve">
+    <value>Tilt</value>
+  </data>
+  <data name="Rotation" xml:space="preserve">
+    <value>Rotation</value>
+  </data>
+  <data name="SliceName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="SliceValue" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="SliceColor" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="RemoveSlice" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="DefaultSliceName" xml:space="preserve">
+    <value>Option {0}</value>
+  </data>
+  <data name="TotalAssigned" xml:space="preserve">
+    <value>Total assigned</value>
+  </data>
+  <data name="AddSlice" xml:space="preserve">
+    <value>Add option</value>
+  </data>
+  <data name="ClearAll" xml:space="preserve">
+    <value>Clear all</value>
+  </data>
+  <data name="Example" xml:space="preserve">
+    <value>Example</value>
+  </data>
+  <data name="ExampleTitle" xml:space="preserve">
+    <value>Weekly listening by genre</value>
+  </data>
+  <data name="EmptyState" xml:space="preserve">
+    <value>Add options with a value to generate the chart.</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>Page not found</value>
+  </data>
+  <data name="NotFoundLead" xml:space="preserve">
+    <value>This page</value>
+  </data>
+  <data name="NotFoundAccent" xml:space="preserve">
+    <value>wandered off.</value>
+  </data>
+  <data name="NotFoundText" xml:space="preserve">
+    <value>The page you're looking for doesn't exist — or hasn't been built yet.</value>
+  </data>
+  <data name="BackToChart" xml:space="preserve">
+    <value>Back to the chart</value>
+  </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorLead" xml:space="preserve">
+    <value>Something</value>
+  </data>
+  <data name="ErrorAccent" xml:space="preserve">
+    <value>went wrong.</value>
+  </data>
+  <data name="ErrorText" xml:space="preserve">
+    <value>An error occurred while processing your request. Please try again.</value>
+  </data>
+  <data name="RequestId" xml:space="preserve">
+    <value>Request ID</value>
+  </data>
+</root>

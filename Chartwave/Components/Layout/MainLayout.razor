@@ -1,0 +1,54 @@
+@inherits LayoutComponentBase
+@inject IStringLocalizer<SharedResource> Localizer
+@inject NavigationManager Navigation
+
+<nav class="cw-nav">
+    <div class="cw-nav-in">
+        <a class="cw-brand" href="/">
+            <img class="cw-mark" src="brand/rako-mark.svg" alt="" />
+            <span>CHARTWAVE</span>
+        </a>
+
+        <div class="cw-nav-tools">
+            <a class="cw-hub-link" href="https://alexitp1125.com" title="@Localizer["MoreApps"]">alexitp1125.com</a>
+
+            <span class="cw-lang" role="group" aria-label="@Localizer["Language"]">
+                <a href="@CultureUrl("en")" class="@LanguageClass("en")" data-enhance-nav="false">EN</a>
+                <span aria-hidden="true">·</span>
+                <a href="@CultureUrl("es")" class="@LanguageClass("es")" data-enhance-nav="false">ES</a>
+            </span>
+
+            <button type="button" class="cw-theme-toggle" data-cw-theme-toggle title="@Localizer["ToggleTheme"]" aria-label="@Localizer["ToggleTheme"]">
+                <svg class="cw-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4.5" />
+                    <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" />
+                </svg>
+                <svg class="cw-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<main class="cw-main">
+    @Body
+</main>
+
+<div id="blazor-error-ui" data-nosnippet>
+    @Localizer["UnhandledError"]
+    <a href="." class="reload">@Localizer["Reload"]</a>
+    <span class="dismiss">🗙</span>
+</div>
+
+@code {
+    // The language link goes through the culture endpoint and comes back to the current page.
+    private string CultureUrl(string culture)
+    {
+        string currentPage = "/" + Navigation.ToBaseRelativePath(Navigation.Uri);
+        return $"/api/culture/{culture}?redirectUri={Uri.EscapeDataString(currentPage)}";
+    }
+
+    private static string? LanguageClass(string culture) =>
+        CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == culture ? "cw-active" : null;
+}

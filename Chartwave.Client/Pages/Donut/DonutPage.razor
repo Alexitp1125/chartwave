@@ -1,0 +1,203 @@
+@page "/"
+@page "/donut"
+@rendermode InteractiveWebAssembly
+@implements IAsyncDisposable
+@using Chartwave.Client.Pages.Donut.Model
+@inject IJSRuntime JS
+@inject IStringLocalizer<SharedResource> Localizer
+
+<PageTitle>Chartwave · @Localizer["DonutPageTitle"]</PageTitle>
+
+<header class="cw-hero">
+    <p class="cw-eyebrow">Chartwave · Donut</p>
+    <h1 class="cw-heading">@Localizer["HeroLead"] <b>@Localizer["HeroAccent"]</b></h1>
+    <p class="cw-sub">@Localizer["HeroText"]</p>
+</header>
+
+<div class="cw-layout">
+    <section class="cw-card cw-panel">
+        <h2 class="cw-panel-title">@Localizer["Settings"]</h2>
+
+        @* Disabled until WebAssembly is running: before that, the page is only the server's HTML. *@
+        <fieldset disabled="@(!RendererInfo.IsInteractive)">
+            <div class="mb-3">
+                <label class="cw-label" for="cw-title">@Localizer["ChartTitle"]</label>
+                <input id="cw-title" class="form-control" maxlength="@DonutChartViewModel.TitleMaxLength"
+                       @bind="model.Title" @bind:event="oninput" />
+            </div>
+
+            <div class="cw-pair mb-3">
+                <div>
+                    <label class="cw-label" for="cw-suffix">@Localizer["ValueSuffix"]</label>
+                    <input id="cw-suffix" class="form-control" maxlength="@DonutChartViewModel.SuffixMaxLength"
+                           placeholder="@Localizer["SuffixPlaceholder"]" @bind="model.Suffix" @bind:event="oninput" />
+                </div>
+                <div>
+                    <label class="cw-label" for="cw-mode">@Localizer["ValueMode"]</label>
+                    <select id="cw-mode" class="form-select" @bind="model.Mode">
+                        <option value="@ValueMode.Percentage">@Localizer["ModePercentage"]</option>
+                        <option value="@ValueMode.Absolute">@Localizer["ModeAbsolute"]</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="cw-sliders mb-3">
+                <div>
+                    <label class="cw-label" for="cw-depth">@Localizer["Depth"]</label>
+                    <input id="cw-depth" type="range" class="form-range"
+                           min="@DonutChartViewModel.MinDepth" max="@DonutChartViewModel.MaxDepth"
+                           @bind="model.Depth" @bind:event="oninput" />
+                    <span class="cw-slider-value">@model.Depth px</span>
+                </div>
+                <div>
+                    <label class="cw-label" for="cw-tilt">@Localizer["Tilt"]</label>
+                    <input id="cw-tilt" type="range" class="form-range"
+                           min="@DonutChartViewModel.MinTilt" max="@DonutChartViewModel.MaxTilt"
+                           @bind="model.Tilt" @bind:event="oninput" />
+                    <span class="cw-slider-value">@model.Tilt %</span>
+                </div>
+                <div>
+                    <label class="cw-label" for="cw-rotation">@Localizer["Rotation"]</label>
+                    <input id="cw-rotation" type="range" class="form-range"
+                           min="0" max="@DonutChartViewModel.MaxRotation"
+                           @bind="model.Rotation" @bind:event="oninput" />
+                    <span class="cw-slider-value">@model.Rotation°</span>
+                </div>
+            </div>
+
+            <ul class="cw-slices">
+                @foreach (DonutSliceViewModel slice in model.Slices)
+                {
+                    <li @key="slice.Key" class="cw-slice">
+                        <label class="cw-swatch" style="background-color: @slice.Color" title="@Localizer["SliceColor"]">
+                            <input type="color" aria-label="@Localizer["SliceColor"]" @bind="slice.Color" @bind:event="oninput" />
+                        </label>
+                        <input class="form-control form-control-sm @(slice.IsValid ? null : "cw-invalid")"
+                               maxlength="@DonutSliceViewModel.NameMaxLength"
+                               placeholder="@Localizer["SliceName"]" aria-label="@Localizer["SliceName"]"
+                               @bind="slice.Name" @bind:event="oninput" />
+                        <input type="number" class="form-control form-control-sm cw-value" min="0" step="any"
+                               placeholder="@Localizer["SliceValue"]" aria-label="@Localizer["SliceValue"]"
+                               onfocus="this.select()" @bind="slice.Value" />
+                        <button type="button" class="cw-remove" title="@Localizer["RemoveSlice"]" aria-label="@Localizer["RemoveSlice"]"
+                                @onclick="() => model.RemoveSlice(slice)">✕</button>
+                    </li>
+                }
+            </ul>
+
+            @if (model.Mode == ValueMode.Percentage)
+            {
+                <div class="cw-total">
+                    <div class="cw-total-info">
+                        <span>@Localizer["TotalAssigned"]</span>
+                        <span class="@TotalClass">@model.TotalText</span>
+                    </div>
+                    <div class="cw-total-bar">
+                        <div class="cw-total-fill @TotalClass" style="width: @model.TotalBarWidth"></div>
+                    </div>
+                </div>
+            }
+
+            <div class="cw-actions">
+                <button type="button" class="cw-btn cw-btn-primary" @onclick="AddSlice">+ @Localizer["AddSlice"]</button>
+                <button type="button" class="cw-btn" @onclick="model.Clear">@Localizer["ClearAll"]</button>
+                <button type="button" class="cw-btn" @onclick="LoadExample">@Localizer["Example"]</button>
+            </div>
+        </fieldset>
+
+        @if (!RendererInfo.IsInteractive)
+        {
+            <p class="cw-loading">@Localizer["Loading"]</p>
+        }
+    </section>
+
+    <section class="cw-card cw-panel">
+        <h2 class="cw-panel-title">@Localizer["Preview"]</h2>
+
+        <div class="cw-chart-wrap">
+            @* Always in the DOM: the TypeScript chart keeps a reference to this canvas. *@
+            <canvas @ref="canvas" class="cw-canvas @(model.HasData ? null : "cw-hidden")"></canvas>
+            <div @ref="tooltip" class="cw-tooltip" role="tooltip"></div>
+
+            @if (!model.HasData)
+            {
+                <div class="cw-empty">
+                    <img src="brand/rako-empty.svg" alt="" />
+                    <p>@Localizer["EmptyState"]</p>
+                </div>
+            }
+        </div>
+
+        @if (model.HasData)
+        {
+            <ul class="cw-legend">
+                @foreach (DonutSliceOptions slice in ((DonutChartOptions)model).Slices)
+                {
+                    <li>
+                        <span class="cw-legend-color" style="background-color: @slice.Color"></span>
+                        <span><strong>@slice.Label</strong> — @slice.ValueText (@slice.PercentText)</span>
+                    </li>
+                }
+            </ul>
+
+            <div class="cw-downloads">
+                <button type="button" class="cw-btn" @onclick="@(() => DownloadAsync("png"))">⬇ @Localizer["Download"] PNG</button>
+                <button type="button" class="cw-btn" @onclick="@(() => DownloadAsync("jpg"))">⬇ @Localizer["Download"] JPG</button>
+            </div>
+        }
+    </section>
+</div>
+
+@code {
+    private readonly DonutChartViewModel model = new();
+    private ElementReference canvas;
+    private ElementReference tooltip;
+    private DonutChartInterop? chart;
+
+    private string? TotalClass => model.IsOverTarget ? "cw-over" : model.IsOnTarget ? "cw-exact" : null;
+
+    protected override void OnInitialized()
+    {
+        model.Title = Localizer["DefaultChartTitle"];
+
+        for (int i = 0; i < 3; i++)
+        {
+            AddSlice();
+        }
+    }
+
+    // Runs only in the browser (never while prerendering): attach once, then redraw after every render.
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            chart = new DonutChartInterop(JS);
+            await chart.AttachAsync(canvas, tooltip);
+        }
+
+        if (chart is not null)
+        {
+            await chart.RenderAsync(model);
+        }
+    }
+
+    private void AddSlice() => model.AddSlice(Localizer["DefaultSliceName", model.Slices.Count + 1]);
+
+    private void LoadExample() => model.LoadExample(Localizer["ExampleTitle"]);
+
+    private async Task DownloadAsync(string format)
+    {
+        if (chart is not null)
+        {
+            await chart.ExportAsync(format);
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (chart is not null)
+        {
+            await chart.DisposeAsync();
+        }
+    }
+}

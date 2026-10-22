@@ -1,0 +1,13 @@
+@page "/not-found"
+@layout MainLayout
+@inject IStringLocalizer<SharedResource> Localizer
+
+<PageTitle>@Localizer["NotFoundTitle"] · Chartwave</PageTitle>
+
+<section class="cw-message">
+    <img class="cw-message-rako" src="brand/rako-error.svg" alt="" />
+    <p class="cw-eyebrow">ERROR 404</p>
+    <h1 class="cw-heading">@Localizer["NotFoundLead"] <b>@Localizer["NotFoundAccent"]</b></h1>
+    <p class="cw-sub">@Localizer["NotFoundText"]</p>
+    <a class="cw-btn cw-btn-primary" href="/">← @Localizer["BackToChart"]</a>
+</section>

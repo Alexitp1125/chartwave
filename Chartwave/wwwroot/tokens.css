@@ -1,0 +1,78 @@
+/* Marca alexitp1125. Tema oscuro (noche) por defecto; tema claro con data-theme="light" o data-bs-theme="light". */
+
+:root {
+  /* Aguamarina */
+  --aqua-light: #9EE7F2;
+  --aqua: #7FDBEA;
+  --aqua-deep: #3FB8CF;
+
+  /* Lavanda */
+  --lavender-light: #C9B8F5;
+  --lavender: #C7A3F0;
+  --violet: #6E59C2;
+
+  /* Rosa */
+  --pink-light: #F4B9DF;
+  --pink: #F6A6D7;
+  --pink-strong: #E77BC0;
+
+  /* Tinta y crema */
+  --ink: #3A2766;
+  --cream: #FFF6FB;
+
+  /* Personajes */
+  --rako-fur: #C9B8F5;
+  --sora-hair: #C7A3F0;
+  --sora-skin: #FFE6D8;
+
+  /* Fuentes */
+  --font-title: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+  --font-label: 'Space Mono', ui-monospace, monospace;
+}
+
+/* Noche */
+:root,
+[data-theme="dark"],
+[data-bs-theme="dark"] {
+  --bg: #110B4A;
+  --surface: #1B1370;
+  --border: #3A2DB3;
+  --text: #F3F0FF;
+  --text-muted: #B9B3F2;
+  --line: #6A4CF0;
+
+  --accent-1: #4FE7FF;
+  --accent-2: #9B6BFF;
+  --accent-3: #FF5FD1;
+
+  --sky-1: #1219A8;
+  --sky-2: #4A23CF;
+  --sky-3: #FF4FC8;
+}
+
+/* Día */
+[data-theme="light"],
+[data-bs-theme="light"] {
+  --bg: #F4F1FF;
+  --surface: #FFFFFF;
+  --border: #D9D2FF;
+  --text: #272A86;
+  --text-muted: #5D5FA8;
+  --line: #2D3192;
+
+  --accent-1: #38B6F2;
+  --accent-2: #8F7BFF;
+  --accent-3: #FF6FC8;
+
+  --sky-1: #3FB4F4;
+  --sky-2: #A9B6FF;
+  --sky-3: #FF9FDC;
+}
+
+/* Degradados, con los colores del tema activo */
+:root,
+[data-theme],
+[data-bs-theme] {
+  --accent: linear-gradient(90deg, var(--accent-1), var(--accent-2), var(--accent-3));
+  --sky-gradient: linear-gradient(180deg, var(--sky-1), var(--sky-2), var(--sky-3));
+}

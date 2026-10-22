@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MoreApps" xml:space="preserve">
+    <value>Más apps de Alexi Torres</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="ToggleTheme" xml:space="preserve">
+    <value>Cambiar tema</value>
+  </data>
+  <data name="UnhandledError" xml:space="preserve">
+    <value>Ha ocurrido un error inesperado.</value>
+  </data>
+  <data name="Reload" xml:space="preserve">
+    <value>Recargar</value>
+  </data>
+  <data name="DonutPageTitle" xml:space="preserve">
+    <value>Gráfica donut 3D</value>
+  </data>
+  <data name="HeroLead" xml:space="preserve">
+    <value>Generador de</value>
+  </data>
+  <data name="HeroAccent" xml:space="preserve">
+    <value>donuts 3D</value>
+  </data>
+  <data name="HeroText" xml:space="preserve">
+    <value>Añade opciones, dales un valor y exporta tu gráfica 3D interactiva.</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Cargando…</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Configuración</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Vista previa 3D</value>
+  </data>
+  <data name="ChartTitle" xml:space="preserve">
+    <value>Título de la gráfica</value>
+  </data>
+  <data name="DefaultChartTitle" xml:space="preserve">
+    <value>Mi gráfica donut 3D</value>
+  </data>
+  <data name="ValueSuffix" xml:space="preserve">
+    <value>Sufijo de valores</value>
+  </data>
+  <data name="SuffixPlaceholder" xml:space="preserve">
+    <value>ej.: %, USD, kg</value>
+  </data>
+  <data name="ValueMode" xml:space="preserve">
+    <value>Modo de valores</value>
+  </data>
+  <data name="ModePercentage" xml:space="preserve">
+    <value>Porcentaje</value>
+  </data>
+  <data name="ModeAbsolute" xml:space="preserve">
+    <value>Valor absoluto</value>
+  </data>
+  <data name="Depth" xml:space="preserve">
+    <value>Profundidad 3D</value>
+  </data>
+  <data name="Tilt" xml:space="preserve">
+    <value>Inclinación</value>
+  </data>
+  <data name="Rotation" xml:space="preserve">
+    <value>Rotación</value>
+  </data>
+  <data name="SliceName" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="SliceValue" xml:space="preserve">
+    <value>Valor</value>
+  </data>
+  <data name="SliceColor" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="RemoveSlice" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="DefaultSliceName" xml:space="preserve">
+    <value>Opción {0}</value>
+  </data>
+  <data name="TotalAssigned" xml:space="preserve">
+    <value>Total asignado</value>
+  </data>
+  <data name="AddSlice" xml:space="preserve">
+    <value>Añadir opción</value>
+  </data>
+  <data name="ClearAll" xml:space="preserve">
+    <value>Limpiar todo</value>
+  </data>
+  <data name="Example" xml:space="preserve">
+    <value>Ejemplo</value>
+  </data>
+  <data name="ExampleTitle" xml:space="preserve">
+    <value>Escucha semanal por género</value>
+  </data>
+  <data name="EmptyState" xml:space="preserve">
+    <value>Añade opciones con un valor para generar la gráfica.</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Descargar</value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>Página no encontrada</value>
+  </data>
+  <data name="NotFoundLead" xml:space="preserve">
+    <value>Esta página</value>
+  </data>
+  <data name="NotFoundAccent" xml:space="preserve">
+    <value>se fue de paseo.</value>
+  </data>
+  <data name="NotFoundText" xml:space="preserve">
+    <value>La página que buscas no existe, o todavía no se ha construido.</value>
+  </data>
+  <data name="BackToChart" xml:space="preserve">
+    <value>Volver a la gráfica</value>
+  </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorLead" xml:space="preserve">
+    <value>Algo</value>
+  </data>
+  <data name="ErrorAccent" xml:space="preserve">
+    <value>salió mal.</value>
+  </data>
+  <data name="ErrorText" xml:space="preserve">
+    <value>Ocurrió un error al procesar tu petición. Vuelve a intentarlo.</value>
+  </data>
+  <data name="RequestId" xml:space="preserve">
+    <value>ID de la petición</value>
+  </data>
+</root>

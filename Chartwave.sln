@@ -1,0 +1,28 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chartwave", "Chartwave\Chartwave.csproj", "{B1BF1C14-FD3B-4FEA-84F8-09C0BE5CEFCB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chartwave.Client", "Chartwave.Client\Chartwave.Client.csproj", "{C9ED0F12-8301-40B7-8232-A5D330D779FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B1BF1C14-FD3B-4FEA-84F8-09C0BE5CEFCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1BF1C14-FD3B-4FEA-84F8-09C0BE5CEFCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1BF1C14-FD3B-4FEA-84F8-09C0BE5CEFCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1BF1C14-FD3B-4FEA-84F8-09C0BE5CEFCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9ED0F12-8301-40B7-8232-A5D330D779FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9ED0F12-8301-40B7-8232-A5D330D779FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9ED0F12-8301-40B7-8232-A5D330D779FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9ED0F12-8301-40B7-8232-A5D330D779FE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

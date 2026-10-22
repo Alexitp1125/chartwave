@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+    <StaticWebAssetProjectMode>Default</StaticWebAssetProjectMode>
+  </PropertyGroup>
+
+  <!-- TypeScript: Interop/*.ts is compiled to wwwroot/js with tsconfig.json on every build. -->
+  <PropertyGroup>
+    <!-- Keeps Visual Studio from also loading its own classic TypeScript build, which fails with TypeScript 7. -->
+    <EnableTypeScriptNuGetTarget>true</EnableTypeScriptNuGetTarget>
+    <!-- Empty: MSBuild doesn't pass a target version to tsc, tsconfig.json decides. -->
+    <TypeScriptTarget></TypeScriptTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.13" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="10.0.13" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="7.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!--
+    Compiles the TypeScript before the static web assets are collected and adds the output to Content,
+    so wwwroot/js is served also on a clean build (Docker). The SDK collects them before the compile phase:
+    https://github.com/dotnet/sdk/issues/52301
+  -->
+  <Target Name="AddTypeScriptOutputToStaticWebAssets"
+          Condition="'$(DesignTimeBuild)' != 'true'"
+          DependsOnTargets="SetTscExecutable;RunTscCompile"
+          BeforeTargets="ResolveProjectStaticWebAssets">
+    <ItemGroup>
+      <_TypeScriptOutput Include="wwwroot\js\**\*.js;wwwroot\js\**\*.js.map" />
+      <Content Remove="@(_TypeScriptOutput)" />
+      <Content Include="@(_TypeScriptOutput)" />
+    </ItemGroup>
+  </Target>
+
+</Project>

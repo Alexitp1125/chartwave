@@ -1,0 +1,31 @@
+@page "/error"
+@using System.Diagnostics
+@inject IStringLocalizer<SharedResource> Localizer
+
+<PageTitle>@Localizer["ErrorTitle"] · Chartwave</PageTitle>
+
+<section class="cw-message">
+    <img class="cw-message-rako" src="brand/rako-error.svg" alt="" />
+    <p class="cw-eyebrow">ERROR 500</p>
+    <h1 class="cw-heading">@Localizer["ErrorLead"] <b>@Localizer["ErrorAccent"]</b></h1>
+    <p class="cw-sub">@Localizer["ErrorText"]</p>
+    <a class="cw-btn cw-btn-primary" href="/">← @Localizer["BackToChart"]</a>
+
+    @if (ShowRequestId)
+    {
+        <p class="cw-request-id">@Localizer["RequestId"]: <code>@RequestId</code></p>
+    }
+</section>
+
+@code {
+    [CascadingParameter]
+    private HttpContext? HttpContext { get; set; }
+
+    // Id to find the error in the server logs.
+    private string? RequestId { get; set; }
+
+    private bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+
+    protected override void OnInitialized() =>
+        RequestId = Activity.Current?.Id ?? HttpContext?.TraceIdentifier;
+}

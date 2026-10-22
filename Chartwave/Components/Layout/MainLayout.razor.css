@@ -1,0 +1,137 @@
+.cw-nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+}
+
+.cw-nav-in {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: .8rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.cw-brand {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    font-weight: 500;
+    letter-spacing: .32em;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.cw-mark {
+    width: 30px;
+    height: 30px;
+    display: block;
+}
+
+.cw-nav-tools {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    font: 400 .75rem var(--font-label);
+    letter-spacing: .15em;
+    color: var(--text-muted);
+}
+
+.cw-nav-tools a {
+    color: var(--text-muted);
+    text-decoration: none;
+}
+
+.cw-nav-tools a:hover {
+    color: var(--text);
+}
+
+.cw-lang {
+    display: flex;
+    gap: .5rem;
+}
+
+.cw-lang a.cw-active {
+    color: var(--text);
+    border-bottom: 2px solid var(--accent-3);
+    padding-bottom: 2px;
+}
+
+.cw-theme-toggle {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+}
+
+.cw-theme-toggle:hover {
+    border-color: var(--accent-2);
+}
+
+.cw-theme-toggle svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* The button shows the theme it switches to. */
+.cw-icon-moon {
+    display: none;
+}
+
+[data-bs-theme="light"] .cw-icon-sun {
+    display: none;
+}
+
+[data-bs-theme="light"] .cw-icon-moon {
+    display: block;
+}
+
+@media (max-width: 600px) {
+    .cw-nav-in {
+        padding: .7rem 16px;
+    }
+
+    .cw-hub-link {
+        display: none;
+    }
+}
+
+#blazor-error-ui {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: .7rem 1.25rem;
+    background: var(--surface);
+    color: var(--text);
+    border-top: 2px solid var(--accent-3);
+}
+
+#blazor-error-ui .reload {
+    color: var(--accent-1);
+    margin-left: .5rem;
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 1rem;
+    top: .6rem;
+}

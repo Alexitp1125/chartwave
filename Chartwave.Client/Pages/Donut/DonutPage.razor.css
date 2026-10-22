@@ -1,0 +1,288 @@
+.cw-hero {
+    max-width: 680px;
+    margin-bottom: 2rem;
+}
+
+.cw-layout {
+    display: grid;
+    grid-template-columns: 380px minmax(0, 1fr);
+    gap: 1.6rem;
+    align-items: start;
+}
+
+.cw-panel {
+    padding: 1.4rem;
+    min-width: 0;
+}
+
+.cw-panel-title {
+    font: 400 .8rem var(--font-label);
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    margin: 0 0 1.2rem;
+    padding-bottom: .7rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.cw-label {
+    display: block;
+    font: 400 .68rem var(--font-label);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: .35rem;
+}
+
+/* Aligned at the bottom, so a label in two lines doesn't move its control. */
+.cw-pair {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: .75rem;
+    align-items: end;
+}
+
+.cw-sliders {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    align-items: end;
+}
+
+.cw-slider-value {
+    font: 700 .72rem var(--font-label);
+    color: var(--accent-2);
+}
+
+/* Slices */
+
+.cw-slices {
+    list-style: none;
+    margin: 0 0 1.2rem;
+    padding: 0 .25rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    max-height: 360px;
+    overflow-y: auto;
+}
+
+.cw-slice {
+    display: grid;
+    grid-template-columns: 26px minmax(0, 1fr) 88px 32px;
+    gap: .5rem;
+    align-items: center;
+    padding: .45rem .55rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--bg) 45%, var(--surface));
+}
+
+.cw-swatch {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    border-radius: 7px;
+    border: 2px solid var(--line);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* The color input covers the swatch, invisible: clicking the swatch opens the picker. */
+.cw-swatch input {
+    position: absolute;
+    inset: -8px;
+    width: calc(100% + 16px);
+    height: calc(100% + 16px);
+    padding: 0;
+    border: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.cw-value {
+    text-align: right;
+    font-weight: 500;
+}
+
+.cw-invalid {
+    border-color: var(--pink-strong);
+}
+
+.cw-remove {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.cw-remove:hover {
+    background: var(--pink-strong);
+    border-color: var(--pink-strong);
+    color: var(--cream);
+}
+
+/* Total of the percentage mode */
+
+.cw-total {
+    margin-bottom: 1.2rem;
+}
+
+.cw-total-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .35rem;
+    font-size: .85rem;
+    color: var(--text-muted);
+}
+
+.cw-total-info .cw-over {
+    color: var(--pink-strong);
+    font-weight: 600;
+}
+
+.cw-total-info .cw-exact {
+    color: var(--accent-1);
+    font-weight: 600;
+}
+
+.cw-total-bar {
+    height: 6px;
+    border-radius: 3px;
+    background: var(--bg);
+    overflow: hidden;
+}
+
+.cw-total-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--accent);
+    transition: width .3s;
+}
+
+.cw-total-fill.cw-over {
+    background: var(--pink-strong);
+}
+
+.cw-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.cw-loading {
+    margin: 1rem 0 0;
+    font: .72rem var(--font-label);
+    letter-spacing: .15em;
+    color: var(--text-muted);
+}
+
+/* Chart */
+
+.cw-chart-wrap {
+    position: relative;
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cw-canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 800 / 540;
+}
+
+.cw-hidden {
+    display: none;
+}
+
+.cw-tooltip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    padding: .45rem .8rem;
+    border-radius: 8px;
+    border: 2px solid var(--line);
+    background: var(--surface);
+    box-shadow: 3px 3px 0 var(--accent-2);
+    font-size: .88rem;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .15s;
+}
+
+/* The tooltip content is created by donut-chart.ts, so it needs ::deep. */
+.cw-tooltip ::deep strong {
+    color: var(--accent-2);
+}
+
+.cw-empty {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 2rem 1rem;
+}
+
+.cw-empty img {
+    width: 120px;
+    height: 120px;
+    display: block;
+    margin: 0 auto 1rem;
+}
+
+.cw-legend {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .6rem 1.2rem;
+}
+
+.cw-legend li {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: .88rem;
+    color: var(--text-muted);
+}
+
+.cw-legend strong {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.cw-legend-color {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    border-radius: 3px;
+    border: 1px solid var(--line);
+}
+
+.cw-downloads {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .5rem;
+    margin-top: 1rem;
+}
+
+@media (max-width: 900px) {
+    .cw-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 420px) {
+    .cw-sliders {
+        grid-template-columns: 1fr;
+    }
+}

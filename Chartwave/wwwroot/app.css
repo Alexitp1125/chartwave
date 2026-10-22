@@ -1,0 +1,185 @@
+/* Global styles of Chartwave. Colors and fonts come from tokens.css. */
+
+/* Bootstrap variables mapped to the brand. */
+:root,
+[data-bs-theme] {
+    --bs-body-font-family: var(--font-title);
+    --bs-body-bg: var(--bg);
+    --bs-body-color: var(--text);
+    --bs-secondary-color: var(--text-muted);
+    --bs-border-color: var(--border);
+    --bs-focus-ring-color: color-mix(in srgb, var(--accent-2) 35%, transparent);
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(180deg,
+        color-mix(in srgb, var(--sky-1) 22%, var(--bg)) 0%,
+        var(--bg) 45%,
+        color-mix(in srgb, var(--sky-3) 20%, var(--bg)) 100%);
+}
+
+.cw-main {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+}
+
+/* FocusOnNavigate focuses the page's h1 for screen readers; no visible outline. */
+h1:focus {
+    outline: none;
+}
+
+/* Text */
+
+.cw-eyebrow {
+    font: 400 .76rem var(--font-label);
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0 0 .8rem;
+}
+
+.cw-heading {
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.08;
+    margin: 0 0 .8rem;
+}
+
+.cw-heading b {
+    font-weight: 600;
+    background: var(--accent);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.cw-sub {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Cards and buttons, as in the hub */
+
+.cw-card {
+    background: var(--surface);
+    border: 2px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 5px 5px 0 var(--accent-2);
+}
+
+.cw-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .55rem 1.1rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform .15s, border-color .15s;
+}
+
+.cw-btn:hover {
+    border-color: var(--accent-2);
+    color: var(--text);
+}
+
+.cw-btn-primary {
+    border-color: transparent;
+    background: var(--accent);
+    color: var(--cream);
+    text-shadow: 0 1px 2px color-mix(in srgb, var(--ink) 50%, transparent);
+}
+
+.cw-btn-primary:hover {
+    border-color: transparent;
+    color: var(--cream);
+    transform: translateY(-1px);
+}
+
+.cw-btn:disabled {
+    opacity: .55;
+    cursor: default;
+    transform: none;
+}
+
+/* Form controls */
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--accent-2);
+    box-shadow: 0 0 0 .2rem var(--bs-focus-ring-color);
+}
+
+.form-range::-webkit-slider-thumb {
+    background: var(--accent-2);
+}
+
+.form-range::-webkit-slider-thumb:active {
+    background: var(--accent-3);
+}
+
+.form-range::-webkit-slider-runnable-track {
+    background: var(--border);
+}
+
+.form-range::-moz-range-thumb {
+    background: var(--accent-2);
+}
+
+.form-range::-moz-range-thumb:active {
+    background: var(--accent-3);
+}
+
+.form-range::-moz-range-track {
+    background: var(--border);
+}
+
+.form-range:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 .2rem var(--bs-focus-ring-color);
+}
+
+/* 404 and 500 pages */
+
+.cw-message {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 3rem 0 2rem;
+    text-align: center;
+}
+
+.cw-message-rako {
+    width: 180px;
+    height: 180px;
+    display: block;
+    margin: 0 auto 1.4rem;
+}
+
+.cw-message .cw-sub {
+    margin-bottom: 1.6rem;
+}
+
+.cw-request-id {
+    margin-top: 1.5rem;
+    font: .72rem var(--font-label);
+    color: var(--text-muted);
+}
+
+@media (max-width: 600px) {
+    .cw-main {
+        padding: 1.8rem 16px 3rem;
+    }
+
+    .cw-message-rako {
+        width: 140px;
+        height: 140px;
+    }
+}
